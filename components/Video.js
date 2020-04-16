@@ -221,10 +221,11 @@ class Video extends Component {
 
     const paused = playbackRate === 0;
 
-    if (paused != this.state.paused) {
-      this.setState({ paused })
+    //if (paused != this.state.paused) {
+      //this.setState({ paused })
+      //this.state.paused = paused; // this is not an issue, we do not want to trigger render
       this.props.onPlay(!paused)
-    }
+    //}
 
   }
 
