@@ -212,6 +212,22 @@ class Video extends Component {
     if (this.state.paused) this.togglePlay()
   }
 
+  onPlaybackRateChange(e) {
+    if (Platform.OS !== 'ios') {
+      return;
+    }
+
+    const { playbackRate } = e;
+
+    const paused = playbackRate === 0;
+
+    if (paused != this.state.paused) {
+      this.setState({ paused })
+      this.props.onPlay(!paused)
+    }
+
+  }
+
   togglePlay() {
     this.setState({ paused: !this.state.paused }, () => {
       this.props.onPlay(!this.state.paused)
@@ -404,6 +420,7 @@ class Video extends Component {
           onProgress={e => this.progress(e)} // Callback every ~250ms with currentTime
           onEnd={() => this.onEnd()}
           onError={e => this.onError(e)}
+          onPlaybackRateChange={e => this.onPlaybackRateChange(e)}
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
         />
