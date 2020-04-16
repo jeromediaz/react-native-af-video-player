@@ -8,7 +8,8 @@ import {
   BackHandler,
   Animated,
   Image,
-  Alert
+  Alert,
+  Platform
 } from 'react-native'
 import VideoPlayer from 'react-native-video'
 import KeepAwake from 'react-native-keep-awake'
@@ -367,6 +368,8 @@ class Video extends Component {
       ...theme
     }
 
+    const displayControls = Platform.OS === 'ios';
+
     return (
       <Animated.View
         style={[
@@ -384,6 +387,7 @@ class Video extends Component {
         }
         <VideoPlayer
           {...checkSource(url)}
+          controls={displayControls}
           paused={paused}
           resizeMode={resizeMode}
           repeat={loop}
@@ -403,6 +407,7 @@ class Video extends Component {
           // onBuffer={() => this.onBuffer()} // Callback when remote video is buffering
           onTimedMetadata={e => onTimedMetadata(e)} // Callback when the stream receive some metadata
         />
+        {Platform.OS !== 'ios' && (
         <Controls
           ref={(ref) => { this.controls = ref }}
           toggleMute={() => this.toggleMute()}
@@ -426,6 +431,7 @@ class Video extends Component {
           controlDuration={controlDuration}
           hideFullScreenControl={hideFullScreenControl}
         />
+        )}
       </Animated.View>
     )
   }
