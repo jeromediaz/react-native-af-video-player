@@ -1,7 +1,8 @@
 {
   "name": "react-native-af-video-player",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "dependencies": {
+    "@react-native-community/slider": "^2.0.0",
     "react-native-keep-awake": "^4.0.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-orientation": "^3.1.3",
