@@ -95,11 +95,15 @@ class Controls extends Component {
   }
 
   hiddenControls() {
+    const { hideProgressBar } = this.props;
+
     Animated.timing(this.progressbar, { toValue: 0, duration: 200 }).start()
     return (
       <Touchable style={styles.container} onPress={() => this.showControls()}>
         <Animated.View style={[styles.container, { paddingBottom: this.progressbar }]}>
-          <ProgressBar theme={this.props.theme.progress} progress={this.props.progress} />
+          {!hideProgressBar && (
+            <ProgressBar theme={this.props.theme.progress} progress={this.props.progress} />
+          )}
         </Animated.View>
       </Touchable>
     )
@@ -128,7 +132,8 @@ class Controls extends Component {
       duration,
       theme,
       inlineOnly,
-      hideFullScreenControl
+      hideFullScreenControl,
+      hideProgressBar
     } = this.props
 
     const { center, ...controlBar } = theme
@@ -166,6 +171,7 @@ class Controls extends Component {
             theme={controlBar}
             inlineOnly={inlineOnly}
             hideFullScreenControl={hideFullScreenControl}
+            hideProgressBar={hideProgressBar}
           />
         </Animated.View>
       </Touchable>
@@ -191,6 +197,7 @@ Controls.propTypes = {
   paused: PropTypes.bool.isRequired,
   inlineOnly: PropTypes.bool.isRequired,
   hideFullScreenControl: PropTypes.bool.isRequired,
+  hideProgressBar: PropTypes.bool.isRequired,
   fullscreen: PropTypes.bool.isRequired,
   muted: PropTypes.bool.isRequired,
   more: PropTypes.bool.isRequired,
